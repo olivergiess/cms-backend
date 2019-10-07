@@ -17,7 +17,7 @@ class CreatePostsTable extends Migration
             $table->bigIncrements('id');
             $table->string('title');
             $table->text('body');
-            $table->dateTime('publish_at');
+            $table->date('publish_at');
             $table->timestamps();
             $table->softDeletes();
             $table->bigInteger('user_id');

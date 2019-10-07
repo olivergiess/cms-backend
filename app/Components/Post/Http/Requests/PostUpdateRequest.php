@@ -26,7 +26,7 @@ class PostUpdateRequest extends FormRequest
         return [
             'title' => 'string',
             'body' => 'string',
-            'publish_at' => 'date_format:Y-m-d h:i:s',
+            'publish_at' => 'date_format:Y-m-d',
         ];
     }
 }
