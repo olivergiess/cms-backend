@@ -16,10 +16,6 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 {
 	use Authenticatable, Authorizable, SoftDeletes;
 
-    protected $hidden = [
-        'deleted_at'
-    ];
-
 	public function getJWTIdentifier()
     {
         return $this->getKey();

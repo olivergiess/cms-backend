@@ -17,10 +17,6 @@ class Post extends Model
         'user_id'
     ];
 
-    protected $hidden = [
-        'deleted_at'
-    ];
-
     public function scopePublished($query)
     {
         return $query->where('publish_at', '<', Carbon::now()->toDateTimeString());
