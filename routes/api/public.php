@@ -15,5 +15,5 @@ Route::get('/test', function () { return 'Testing...'; });
 
 Route::post('/login', 'Auth\Http\Controllers\AuthController@login');
 
-Route::get('/posts/published', '\App\Components\Post\Http\Controllers\PublishedPostController@all');
-Route::get('/posts/published/{id}', '\App\Components\Post\Http\Controllers\PublishedPostController@show');
+Route::get('/posts/published/{slug}', '\App\Components\Post\Http\Controllers\PublishedPostController@all');
+Route::get('/posts/published/{slug}/{id}', '\App\Components\Post\Http\Controllers\PublishedPostController@show');

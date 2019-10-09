@@ -15,16 +15,16 @@ class PublishedPostController extends BaseController
         $this->repository = $repository;
     }
 
-    public function all()
+    public function all(string $slug)
     {
-        $posts = $this->repository->published();
+        $posts = $this->repository->published($slug);
 
         return $posts;
     }
 
-    public function show(int $id)
+    public function show(string $slug, int $id)
     {
-        $post = $this->repository->published(['id' => $id]);
+        $post = $this->repository->published($slug, ['id' => $id]);
 
         return $post;
     }
