@@ -13,5 +13,5 @@
 
 Route::post('/login', 'Auth\Http\Controllers\AuthController@login');
 
-Route::get('/users/{slug}', '\App\Components\User\Http\Controllers\SlugUserController@show');
-Route::get('/users/{slug}/posts/published', '\App\Components\User\Http\Controllers\SlugUserController@published');
+Route::get('/users/{slug}', 'User\Http\Controllers\SlugUserController@show');
+Route::get('/users/{slug}/posts/published', 'User\Http\Controllers\SlugUserController@published');

@@ -6,7 +6,7 @@ use App\Components\Base\Http\Resources\BaseResource;
 
 class TokenResource extends BaseResource
 {
-    public function toArray($request = FALSE)
+    public function structure()
     {
         return [
         	'access_token' => $this->resource,
