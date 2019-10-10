@@ -14,9 +14,8 @@ class CurrentUserUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'email|confirmation',
-            'email_confirmation' => 'email',
-            'slug' => 'string|alpha',
+            'email' => 'email',
+            'slug' => 'string|alpha|min:3|max:10',
         ];
     }
 }
