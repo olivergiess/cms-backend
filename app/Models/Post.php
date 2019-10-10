@@ -19,7 +19,7 @@ class Post extends Model
 
     public function scopePublished($query)
     {
-        return $query->where('publish_at', '<', Carbon::now()->toDateTimeString());
+        return $query->where('publish_at', '<=', Carbon::now()->toDateTimeString());
     }
 
     public function user()
