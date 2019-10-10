@@ -15,19 +15,4 @@ class EloquentPostRepository extends EloquentBaseRepository implements PostRepos
     {
         parent::__construct($model, $resource, $collection);
     }
-
-    public function published(string $slug, array $where = [])
-    {
-        $models = $this->model::published()
-            ->whereHas('user', function ($query) use ($slug) {
-                $query->where('slug', '=', $slug);
-            })
-            ->where($where)
-            ->with($this->expansions)
-            ->get();
-
-		$result = $this->collection->make($models);
-
-		return $result;
-    }
 }

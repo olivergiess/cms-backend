@@ -16,6 +16,11 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 {
 	use Authenticatable, Authorizable, SoftDeletes;
 
+	protected $fillable = [
+	    'email',
+        'slug',
+    ];
+
 	public function getJWTIdentifier()
     {
         return $this->getKey();
@@ -24,5 +29,10 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
     }
 }

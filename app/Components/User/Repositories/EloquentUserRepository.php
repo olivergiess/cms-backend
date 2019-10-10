@@ -24,4 +24,24 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
 
 		return $result;
     }
+
+    public function getBySlug(string $slug)
+    {
+        $user = $this->model::where('slug', '=', $slug)
+            ->with($this->expansions)
+            ->first();
+
+        $result = $this->resource->make($user);
+
+        return $result;
+    }
+
+    public function withPublished()
+    {
+        $this->expansions = [
+            'posts' => function($q) {
+                $q->published();
+            }
+        ];
+    }
 }

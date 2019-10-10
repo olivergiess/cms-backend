@@ -33,6 +33,15 @@ abstract class EloquentBaseRepository implements BaseRepository
 		return $result;
 	}
 
+    public function show(int $id)
+    {
+		$model = $this->model::with($this->expansions)->findOrFail($id);
+
+        $result = $this->resource->make($model);
+
+        return $result;
+    }
+
     public function create(array $data)
     {
         $model = $this->model->create($data);
@@ -40,15 +49,6 @@ abstract class EloquentBaseRepository implements BaseRepository
         $model->refresh();
 
         $model->load($this->expansions);
-
-        $result = $this->resource->make($model);
-
-        return $result;
-    }
-
-    public function show(int $id)
-    {
-		$model = $this->model::with($this->expansions)->findOrFail($id);
 
         $result = $this->resource->make($model);
 

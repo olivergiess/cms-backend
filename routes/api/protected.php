@@ -13,7 +13,8 @@
 
 Route::post('/logout', 'Auth\Http\Controllers\AuthController@logout');
 
-Route::get('/user/current', 'User\Http\Controllers\UserController@details');
+Route::get('/user/current', 'User\Http\Controllers\CurrentUserController@show');
+Route::put('/user/current', 'User\Http\Controllers\CurrentUserController@update');
 
 Route::get('/posts', 'Post\Http\Controllers\PostController@all')->middleware('can:all,App\Components\Post\Http\Resources\PostResource');
 Route::post('/posts', 'Post\Http\Controllers\PostController@store')->middleware('can:create,App\Components\Post\Http\Resources\PostResource');

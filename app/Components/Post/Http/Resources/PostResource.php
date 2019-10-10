@@ -2,24 +2,21 @@
 
 namespace App\Components\Post\Http\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
-
+use App\Components\Base\Http\Resources\BaseResource;
 use App\Models\Post;
 
-class PostResource extends JsonResource
+class PostResource extends BaseResource
 {
     public function __construct(Post $resource)
     {
         parent::__construct($resource);
     }
 
-    /**
-     * Transform the resource into an array.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
-     */
-    public function toArray($request)
+    protected $relations = [
+    	'user' => UserResource::class
+	];
+
+    protected function structure()
     {
         return [
             'id'         => $this->id,
@@ -28,6 +25,6 @@ class PostResource extends JsonResource
             'publish_at' => $this->publish_at,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-        ];
+        ] ;
     }
 }

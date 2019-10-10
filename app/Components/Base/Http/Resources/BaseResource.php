@@ -22,4 +22,11 @@ abstract class BaseResource extends JsonResource
 			'relationships' => $relationships,
 		] : [];
 	}
+
+	public function toArray($request)
+    {
+        return $this->structure() + $this->relationships();
+    }
+
+    abstract protected function structure();
 }

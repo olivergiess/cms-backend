@@ -6,5 +6,5 @@ use App\Components\Base\Contracts\Repositories\BaseRepository;
 
 interface PostRepository extends BaseRepository
 {
-	public function published(string $slug, array $where = []);
+    //
 }
