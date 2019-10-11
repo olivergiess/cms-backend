@@ -6,6 +6,7 @@ use App\Components\Auth\Contracts\Repositories\AuthRepository;
 
 use App\Models\User;
 use App\Components\Auth\Http\Resources\TokenResource;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class JWTAuthRepository implements AuthRepository
@@ -31,16 +32,7 @@ class JWTAuthRepository implements AuthRepository
 
 	public function refresh()
     {
-        $auth = auth();
-
-        $user = $auth->user();
-
-        if(!$user)
-        {
-            throw new UnauthorizedHttpException('', 'Unable to Authenticate.');
-        }
-
-        $token = $auth->refresh();
+        $token = auth()->refresh();
 
         return TokenResource::make($token);
     }
