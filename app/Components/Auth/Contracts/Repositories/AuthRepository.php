@@ -10,5 +10,7 @@ interface AuthRepository
 
 	public function authenticate(string $email, string $password);
 
+	public function refresh();
+
 	public function logout();
 }

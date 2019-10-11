@@ -6,6 +6,11 @@ use App\Components\Base\Http\Resources\BaseResource;
 
 class TokenResource extends BaseResource
 {
+    public function __construct(string $resource)
+    {
+        parent::__construct($resource);
+    }
+
     public function structure()
     {
         return [

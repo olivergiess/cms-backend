@@ -19,13 +19,31 @@ class JWTAuthRepository implements AuthRepository
 
     public function authenticate(string $email, string $password)
 	{
-		if (!$token = auth()->attempt(['email' => $email, 'password' => $password]))
+	    $token = auth()->attempt(['email' => $email, 'password' => $password]);
+
+		if (!$token)
 		{
-            throw new UnauthorizedHttpException('Unable to Authenticate.');
+            throw new UnauthorizedHttpException('', 'Unable to Authenticate.');
         }
 
 		return TokenResource::make($token);
 	}
+
+	public function refresh()
+    {
+        $auth = auth();
+
+        $user = $auth->user();
+
+        if(!$user)
+        {
+            throw new UnauthorizedHttpException('', 'Unable to Authenticate.');
+        }
+
+        $token = $auth->refresh();
+
+        return TokenResource::make($token);
+    }
 
 	public function logout()
     {

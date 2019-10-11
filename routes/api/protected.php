@@ -11,7 +11,7 @@
 |
 */
 
-Route::post('/logout', 'Auth\Http\Controllers\AuthController@logout');
+Route::post('/auth/logout', 'Auth\Http\Controllers\AuthController@logout');
 
 Route::get('/user/current', 'User\Http\Controllers\CurrentUserController@show');
 Route::put('/user/current', 'User\Http\Controllers\CurrentUserController@update');

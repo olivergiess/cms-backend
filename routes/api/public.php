@@ -11,7 +11,8 @@
 |
 */
 
-Route::post('/login', 'Auth\Http\Controllers\AuthController@login');
+Route::post('/auth/login', 'Auth\Http\Controllers\AuthController@login');
+Route::post('/auth/refresh', 'Auth\Http\Controllers\AuthController@refresh');
 
 Route::get('/users/{slug}', 'User\Http\Controllers\SlugUserController@show');
 Route::get('/users/{slug}/posts/published', 'User\Http\Controllers\SlugUserController@published');

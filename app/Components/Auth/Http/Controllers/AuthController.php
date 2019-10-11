@@ -9,22 +9,29 @@ use App\Components\Auth\Http\Requests\LoginRequest;
 
 class AuthController extends BaseController
 {
-	protected $user;
+	protected $repository;
 
-	public function __construct(AuthRepository $user)
+	public function __construct(AuthRepository $repository)
 	{
-		$this->user = $user;
+		$this->repository = $repository;
 	}
 
     public function login(LoginRequest $request)
 	{
-		$token = $this->user->authenticate($request->email, $request->password);
+		$result = $this->repository->authenticate($request->email, $request->password);
 
-		return $token;
+		return $result;
+	}
+
+	public function refresh()
+	{
+		$result = $this->repository->refresh();
+
+		return $result;
 	}
 
 	public function logout()
 	{
-	    $this->user->logout();
+	    $this->repository->logout();
 	}
 }

@@ -2,11 +2,11 @@
 
 use Illuminate\Database\Seeder;
 
-class UsersTableSeeder extends Seeder
+class PostsTableSeeder extends Seeder
 {
     public function run()
     {
-        $user = factory(\App\Models\User::class)->create([
+        $posts = factory(\App\Models\Post::class)->create([
             'email' => 'test@test.com',
             'slug' => 'test',
         ]);
