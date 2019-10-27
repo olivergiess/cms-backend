@@ -16,3 +16,5 @@ Route::post('/auth/refresh', 'Auth\Http\Controllers\AuthController@refresh');
 
 Route::get('/users/{slug}', 'User\Http\Controllers\SlugUserController@show');
 Route::get('/users/{slug}/posts/published', 'User\Http\Controllers\SlugUserController@published');
+
+Route::get('/posts/published/{id}', 'Post\Http\Controllers\PublishedController@show');
