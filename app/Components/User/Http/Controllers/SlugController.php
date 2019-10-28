@@ -7,7 +7,7 @@ use App\Http\Traits\Expandable;
 
 use App\Components\User\Contracts\Repositories\UserRepository;
 
-class SlugUserController extends BaseController
+class SlugController extends BaseController
 {
     use Expandable;
 

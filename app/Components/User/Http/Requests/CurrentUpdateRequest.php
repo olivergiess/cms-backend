@@ -4,7 +4,7 @@ namespace App\Components\User\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CurrentUserUpdateRequest extends FormRequest
+class CurrentUpdateRequest extends FormRequest
 {
     public function authorize()
     {

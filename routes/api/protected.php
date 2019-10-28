@@ -2,19 +2,18 @@
 
 /*
 |--------------------------------------------------------------------------
-| Broadcast Channels
+| Protected API Endpoints
 |--------------------------------------------------------------------------
 |
-| Here you may register all of the event broadcasting channels that your
-| application supports. The given channel authorization callbacks are
-| used to check if an authenticated user can listen to the channel.
+| Here you may register all of the API endpoints which are protected by
+| authentication.
 |
 */
 
 Route::post('/auth/logout', 'Auth\Http\Controllers\AuthController@logout');
 
-Route::get('/user/current', 'User\Http\Controllers\CurrentUserController@show');
-Route::put('/user/current', 'User\Http\Controllers\CurrentUserController@update');
+Route::get('/user/current', 'User\Http\Controllers\CurrentController@show');
+Route::put('/user/current', 'User\Http\Controllers\CurrentController@update');
 
 Route::get('/posts', 'Post\Http\Controllers\PostController@all')->middleware('can:all,App\Components\Post\Http\Resources\PostResource');
 Route::post('/posts', 'Post\Http\Controllers\PostController@store')->middleware('can:create,App\Components\Post\Http\Resources\PostResource');

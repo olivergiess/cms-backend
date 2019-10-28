@@ -17,8 +17,12 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 	use Authenticatable, Authorizable, SoftDeletes;
 
 	protected $fillable = [
+	    'first_name',
+        'last_name',
 	    'email',
+        'password',
         'slug',
+        'date_of_birth',
     ];
 
 	public function getJWTIdentifier()

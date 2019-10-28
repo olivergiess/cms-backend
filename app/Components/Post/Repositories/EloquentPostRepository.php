@@ -16,7 +16,18 @@ class EloquentPostRepository extends EloquentBaseRepository implements PostRepos
         parent::__construct($model, $resource, $collection);
     }
 
-    public function published(int $id)
+    public function allPublished()
+    {
+        $posts = $this->model::with($this->expansions)
+            ->published()
+            ->get();
+
+        $result = $this->collection->make($posts);
+
+        return $result;
+    }
+
+    public function showPublished(int $id)
     {
         $post = $this->model::with($this->expansions)
             ->published()

@@ -19,11 +19,20 @@ class PublishedController extends BaseController
         $this->repository = $repository;
     }
 
+    public function all(Request $request)
+    {
+        $this->expand($request, $this->repository);
+
+        $posts = $this->repository->allPublished();
+
+        return $posts;
+    }
+
     public function show(int $id, Request $request)
     {
         $this->expand($request, $this->repository);
 
-        $post = $this->repository->published($id);
+        $post = $this->repository->showPublished($id);
 
         return $post;
     }
