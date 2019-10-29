@@ -16,10 +16,8 @@ class UserStoreRequest extends FormRequest
         return [
             'first_name'            => 'required|string|alpha',
             'last_name'             => 'required|string|alpha',
-            'email'                 => 'required|email|confirmed|unique:users,email',
-            'email_confirmation'    => 'required',
-            'password'              => 'required|string|confirmed|min:8',
-            'password_confirmation' => 'required',
+            'email'                 => 'required|email|unique:users,email',
+            'password'              => 'required|string|min:8',
             'slug'                  => 'required|unique:users,slug|string|alpha|min:3|max:10',
             'date_of_birth'         => 'date|date_format:YYYY-MM-DD',
         ];

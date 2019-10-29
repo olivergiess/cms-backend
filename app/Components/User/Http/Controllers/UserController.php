@@ -20,6 +20,6 @@ class UserController extends BaseController
     {
         $data = $request->validated();
 
-        return $this->repository->store($data);
+        return $this->repository->create($data);
     }
 }

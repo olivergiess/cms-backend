@@ -8,12 +8,20 @@ use App\Components\User\Contracts\Repositories\UserRepository;
 use App\Models\User;
 use App\Components\User\Http\Resources\UserResource;
 use App\Components\User\Http\Resources\UserCollection;
+use Illuminate\Support\Facades\Hash;
 
 class EloquentUserRepository extends EloquentBaseRepository implements UserRepository
 {
     public function __construct(User $model, UserResource $resource, UserCollection $collection)
     {
         parent::__construct($model, $resource, $collection);
+    }
+
+    public function create(array $data)
+    {
+        $data['password'] = Hash::make($data['password']);
+
+        return parent::create($data);
     }
 
     public function authenticated(array $where = [])
