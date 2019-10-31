@@ -17,8 +17,7 @@ trait ParseExpansions
 
         $expansions = $this->retrieveExpansions($request);
 
-        if($expansions)
-            $repository->storeExpansions($expansions);
+        $expansions ?: $repository->storeExpansions($expansions);
     }
 
     private function retrieveExpansions(Request $request)

@@ -4,38 +4,37 @@ namespace App\Components\Base\Repositories;
 
 use App\Components\Base\Contracts\Repositories\BaseRepository;
 use App\Components\Base\Contracts\Traits\HandleExpansions as HandleExpansionsContract;
+use App\Components\Base\Contracts\Traits\HandleFilters as HandleFiltersContract;
+
 use App\Components\Base\Traits\HandleExpansions;
+use App\Components\Base\Traits\HandleFilters;
 
-abstract class EloquentBaseRepository implements BaseRepository, HandleExpansionsContract
+abstract class EloquentBaseRepository implements BaseRepository, HandleExpansionsContract, HandleFiltersContract
 {
-    use HandleExpansions;
-
-	protected $model;
-	protected $resource;
-	protected $collection;
+    use HandleExpansions, HandleFilters;
+    protected $model;
+    protected $resource;
+    protected $collection;
 
     public function __construct($model, $resource, $collection)
     {
-		$this->model      = $model;
-		$this->resource   = $resource;
-		$this->collection = $collection;
+        $this->model      = $model;
+        $this->resource   = $resource;
+        $this->collection = $collection;
     }
 
     public function all(array $where = [])
-	{
-		$models = $this->model::where($where)
-                              ->with($this->expansions)
-                              ->get();
+    {
+        $models = $this->model::where($where)->with($this->expansions)->filters($this->filters)->get();
 
-		$result = $this->collection->make($models);
+        $result = $this->collection->make($models);
 
-		return $result;
-	}
+        return $result;
+    }
 
     public function show(int $id)
     {
-		$model = $this->model::with($this->expansions)
-                             ->findOrFail($id);
+        $model = $this->model::with($this->expansions)->filters($this->filters)->findOrFail($id);
 
         $result = $this->resource->make($model);
 
@@ -57,8 +56,7 @@ abstract class EloquentBaseRepository implements BaseRepository, HandleExpansion
 
     public function update(int $id, array $data)
     {
-        $model = $this->model::with($this->expansions)
-                             ->findOrFail($id);
+        $model = $this->model::with($this->expansions)->findOrFail($id);
 
         $model->update($data);
 
@@ -71,8 +69,7 @@ abstract class EloquentBaseRepository implements BaseRepository, HandleExpansion
 
     public function delete(int $id)
     {
-        $result = $this->model::findOrFail($id)
-                              ->delete();
+        $result = $this->model::findOrFail($id)->delete();
 
         return $result;
     }

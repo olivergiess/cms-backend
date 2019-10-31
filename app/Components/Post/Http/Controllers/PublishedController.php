@@ -17,6 +17,12 @@ class PublishedController extends BaseController
 
         $this->allowedExpansions = ['user'];
 
+        $this->allowedFilters = [
+            'user'=> [
+                'slug'
+            ]
+        ];
+
         parent::__construct($request);
     }
 
