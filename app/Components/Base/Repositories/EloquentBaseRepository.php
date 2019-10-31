@@ -3,14 +3,16 @@
 namespace App\Components\Base\Repositories;
 
 use App\Components\Base\Contracts\Repositories\BaseRepository;
+use App\Components\Base\Contracts\Repositories\ExpandableRepository as ExpandableRepositoryContract;
+use App\Traits\ExpandableRepository;
 
-abstract class EloquentBaseRepository implements BaseRepository
+abstract class EloquentBaseRepository implements BaseRepository, ExpandableRepositoryContract
 {
+    use ExpandableRepository;
+
 	protected $model;
 	protected $resource;
 	protected $collection;
-
-    protected $expansions = [];
 
     public function __construct($model, $resource, $collection)
     {
@@ -19,14 +21,11 @@ abstract class EloquentBaseRepository implements BaseRepository
 		$this->collection = $collection;
     }
 
-    public function expand(string $expansions)
+    public function all(array $where = [])
 	{
-		$this->expansions = explode(',', $expansions);
-	}
-
-	public function all(array $where = [])
-	{
-		$models = $this->model::where($where)->with($this->expansions)->get();
+		$models = $this->model::where($where)
+                              ->with($this->expansions)
+                              ->get();
 
 		$result = $this->collection->make($models);
 
@@ -35,7 +34,8 @@ abstract class EloquentBaseRepository implements BaseRepository
 
     public function show(int $id)
     {
-		$model = $this->model::with($this->expansions)->findOrFail($id);
+		$model = $this->model::with($this->expansions)
+                             ->findOrFail($id);
 
         $result = $this->resource->make($model);
 
@@ -57,7 +57,8 @@ abstract class EloquentBaseRepository implements BaseRepository
 
     public function update(int $id, array $data)
     {
-        $model = $this->model::with($this->expansions)->findOrFail($id);
+        $model = $this->model::with($this->expansions)
+                             ->findOrFail($id);
 
         $model->update($data);
 
@@ -70,7 +71,8 @@ abstract class EloquentBaseRepository implements BaseRepository
 
     public function delete(int $id)
     {
-        $result = $this->model::findOrFail($id)->delete();
+        $result = $this->model::findOrFail($id)
+                              ->delete();
 
         return $result;
     }

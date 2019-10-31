@@ -18,6 +18,5 @@ Route::post('/users', 'User\Http\Controllers\UserController@store');
 Route::get('/users/{slug}', 'User\Http\Controllers\SlugController@show');
 
 // Posts
-Route::get('/users/{slug}/posts/published', 'User\Http\Controllers\SlugController@published');
 Route::get('/posts/published', 'Post\Http\Controllers\PublishedController@all');
 Route::get('/posts/published/{id}', 'Post\Http\Controllers\PublishedController@show');

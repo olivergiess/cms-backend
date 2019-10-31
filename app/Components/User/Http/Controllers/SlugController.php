@@ -3,14 +3,11 @@
 namespace App\Components\User\Http\Controllers;
 
 use App\Components\Base\Http\Controllers\BaseController;
-use App\Http\Traits\Expandable;
 
 use App\Components\User\Contracts\Repositories\UserRepository;
 
 class SlugController extends BaseController
 {
-    use Expandable;
-
     private $repository;
 
     public function __construct(UserRepository $repository)

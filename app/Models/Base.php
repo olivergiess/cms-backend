@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Traits\FilterQueryScope;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Model;
 
-class Base extends Model
+abstract class Base extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, FilterQueryScope;
 }
