@@ -3,18 +3,20 @@
 namespace App\Components\Base\Http\Controllers;
 
 use Illuminate\Routing\Controller;
-use App\Components\Base\Contracts\Http\Controllers\ExpandableController as ExpandableControllerContract;
+use App\Components\Base\Contracts\Traits\ParseExpansions as ParseExpansionsContract;
 
-use App\Traits\ExpandableController;
+use App\Components\Base\Traits\ParseExpansions;
 
 use Illuminate\Http\Request;
 
-abstract class BaseController extends Controller implements ExpandableControllerContract
+abstract class BaseController extends Controller implements ParseExpansionsContract
 {
-    use ExpandableController;
+    use ParseExpansions;
+
+    protected $repository;
 
 	public function __construct(Request $request)
     {
-        $this->setupExpansions($request, $this->repository);
+        $this->parseExpansions($request, $this->repository);
     }
 }

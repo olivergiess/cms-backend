@@ -3,12 +3,12 @@
 namespace App\Components\Base\Repositories;
 
 use App\Components\Base\Contracts\Repositories\BaseRepository;
-use App\Components\Base\Contracts\Repositories\ExpandableRepository as ExpandableRepositoryContract;
-use App\Traits\ExpandableRepository;
+use App\Components\Base\Contracts\Traits\HandleExpansions as HandleExpansionsContract;
+use App\Components\Base\Traits\HandleExpansions;
 
-abstract class EloquentBaseRepository implements BaseRepository, ExpandableRepositoryContract
+abstract class EloquentBaseRepository implements BaseRepository, HandleExpansionsContract
 {
-    use ExpandableRepository;
+    use HandleExpansions;
 
 	protected $model;
 	protected $resource;

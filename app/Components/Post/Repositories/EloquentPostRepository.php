@@ -19,7 +19,6 @@ class EloquentPostRepository extends EloquentBaseRepository implements PostRepos
     public function allPublished()
     {
         $posts = $this->model::with($this->expansions)
-            ->filter('user', 'slug', 'test')
             ->published()
             ->get();
 
