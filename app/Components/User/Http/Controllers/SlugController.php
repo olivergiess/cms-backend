@@ -19,11 +19,4 @@ class SlugController extends BaseController
     {
         return $this->repository->getBySlug($slug);
     }
-
-    public function published(string $slug)
-    {
-        $this->repository->withPublished();
-
-        return $this->repository->getBySlug($slug);
-    }
 }

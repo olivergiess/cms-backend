@@ -10,18 +10,12 @@ use Illuminate\Http\Request;
 class PublishedController extends BaseController
 {
     protected $repository;
+    protected $allowedExpansions = ['user'];
+    protected $allowedFilters = ['user' => ['slug']];
 
     public function __construct(Request $request, PostRepository $repository)
     {
         $this->repository = $repository;
-
-        $this->allowedExpansions = ['user'];
-
-        $this->allowedFilters = [
-            'user'=> [
-                'slug'
-            ]
-        ];
 
         parent::__construct($request);
     }

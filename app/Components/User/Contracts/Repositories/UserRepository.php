@@ -9,6 +9,4 @@ interface UserRepository extends BaseRepository
 	public function authenticated(array $where);
 
 	public function getBySlug(string $slug);
-
-	public function withPublished();
 }

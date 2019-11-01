@@ -43,13 +43,4 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
 
         return $result;
     }
-
-    public function withPublished()
-    {
-        $this->expansions = [
-            'posts' => function($q) {
-                $q->published();
-            }
-        ];
-    }
 }
