@@ -11,7 +11,7 @@ trait ParseFilters
 
     protected $allowedFilters = [];
 
-    public function parseFilters(Request $request, HandleFilters $repository)
+    public function parseFilters(Request $request, HandleFilters $repository) : void
     {
         $this->repository->allowFilters($this->allowedFilters);
 
@@ -20,8 +20,12 @@ trait ParseFilters
         $repository->storeFilters($filters);
     }
 
-    private function retrieveFilters(Request $request)
+    private function retrieveFilters(Request $request) : array
     {
-        return $request->input($this->filterName);
+        $filterValue = $request->input($this->filterName);
+
+        return $filterValue
+            ? $filterValue
+            : [];
     }
 }

@@ -11,19 +11,26 @@ trait ParseExpansions
 
     protected $allowedExpansions = [];
 
-    public function parseExpansions(Request $request, HandleExpansions $repository)
+    public function parseExpansions(Request $request, HandleExpansions $repository) : void
     {
         $this->repository->allowExpansions($this->allowedExpansions);
 
         $expansions = $this->retrieveExpansions($request);
 
-        $expansions ?: $repository->storeExpansions($expansions);
+        $repository->storeExpansions($expansions);
     }
 
-    private function retrieveExpansions(Request $request)
+    private function retrieveExpansions(Request $request) : array
     {
         $expandValue = $request->input($this->expandName);
 
-        return explode(',', $expandValue);
+        return $expandValue
+            ? $this->extractExpansions($expandValue)
+            : [];
+    }
+
+    private function extractExpansions(string $expansions) : array
+    {
+        return explode(',', $expansions);
     }
 }

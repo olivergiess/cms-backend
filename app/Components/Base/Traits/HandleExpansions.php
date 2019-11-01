@@ -10,7 +10,7 @@ trait HandleExpansions
     protected $allowedExpansions = [];
 
     public function storeExpansions(array $expansions)
-	{
+    {
 		$this->validateExpansions($expansions);
 
 		$this->expansions = $expansions;
