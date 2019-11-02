@@ -20,6 +20,7 @@ class PostResource extends BaseResource
     protected function structure()
     {
         return [
+            'type'       => 'post',
             'id'         => $this->id,
             'title'      => $this->title,
             'body'       => $this->body,

@@ -15,6 +15,10 @@ class PostController extends BaseController
     {
         $this->repository = $repository;
 
+        $this->allowedExpansions = [
+            'user'
+        ];
+
         parent::__construct($request);
     }
 

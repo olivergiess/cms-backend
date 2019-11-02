@@ -6,14 +6,15 @@ use App\Components\Base\Http\Controllers\BaseController;
 
 use App\Components\User\Contracts\Repositories\UserRepository;
 use App\Components\User\Http\Requests\UserStoreRequest;
+use Illuminate\Http\Request;
 
 class UserController extends BaseController
 {
-    private $repository;
-
-    public function __construct(UserRepository $repository)
+    public function __construct(Request $request, UserRepository $repository)
     {
         $this->repository = $repository;
+
+        parent::__construct($request);
     }
 
     public function store(UserStoreRequest $request)

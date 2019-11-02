@@ -16,7 +16,9 @@ abstract class BaseResource extends JsonResource
 
 		foreach($this->relations as $relation => $resource)
 			if($this->resource->relationLoaded($relation))
-				$relationships[$relation] = new $resource($this->$relation);
+				$relationships[$relation] = [
+				    'data' => new $resource($this->$relation)
+                ];
 
 		return $relationships ? [
 			'relationships' => $relationships,
