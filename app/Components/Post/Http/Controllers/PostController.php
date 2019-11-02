@@ -11,11 +11,11 @@ use App\Components\Post\Http\Requests\PostUpdateRequest;
 
 class PostController extends BaseController
 {
-    private $repository;
-
-    public function __construct(PostRepository $repository)
+    public function __construct(Request $request, PostRepository $repository)
     {
         $this->repository = $repository;
+
+        parent::__construct($request);
     }
 
     public function all(Request $request)
