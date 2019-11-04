@@ -18,8 +18,8 @@ class EloquentPostRepository extends EloquentBaseRepository implements PostRepos
 
     public function allPublished()
     {
-        $posts = $this->model::with($this->expansions)
-            ->filters($this->filters)
+        $posts = $this->model::with($this->getExpansions())
+            ->filters($this->getFilters())
             ->published()
             ->get();
 
@@ -30,8 +30,8 @@ class EloquentPostRepository extends EloquentBaseRepository implements PostRepos
 
     public function showPublished(int $id)
     {
-        $post = $this->model::with($this->expansions)
-            ->filters($this->filters)
+        $post = $this->model::with($this->getExpansions())
+            ->filters($this->getFilters())
             ->published()
             ->findOrFail($id);
 

@@ -6,26 +6,31 @@ use App\Exceptions\InvalidFilterException;
 
 trait HandleFilters
 {
-	protected $filters = [];
-    protected $allowedFilters = [];
+	private $filters = [];
+    private $allowedFilters = [];
 
-    public function storeFilters(array $filters) : void
+    public function setFilters(array $filters) : void
 	{
 		$this->validateFilters($filters);
 
 		$this->filters = $filters;
 	}
 
-	private function validateFilters(array $filters): void
+	public function getFilters() : array
+    {
+        return $this->filters;
+    }
+
+    public function setAllowedFilters(array $filters) : void
+    {
+        $this->allowedFilters = $this->notate($filters);
+    }
+
+	private function validateFilters(array $filters) : void
     {
         foreach($filters as $filter => $value)
             if(!in_array($filter, $this->allowedFilters))
                 throw new InvalidFilterException();
-    }
-
-	public function allowFilters(array $filters) : void
-    {
-        $this->allowedFilters = $this->notate($filters);
     }
 
     /**

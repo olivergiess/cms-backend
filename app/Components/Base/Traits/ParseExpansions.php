@@ -13,11 +13,11 @@ trait ParseExpansions
 
     public function parseExpansions(Request $request, HandleExpansions $repository) : void
     {
-        $this->repository->allowExpansions($this->allowedExpansions);
+        $this->repository->setAllowedExpansions($this->allowedExpansions);
 
         $expansions = $this->retrieveExpansions($request);
 
-        $repository->storeExpansions($expansions);
+        $repository->setExpansions($expansions);
     }
 
     private function retrieveExpansions(Request $request) : array

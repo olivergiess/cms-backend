@@ -13,6 +13,10 @@ class SlugController extends BaseController
     {
         $this->repository = $repository;
 
+        $this->allowedExpansions = [
+            'published'
+        ];
+
         parent::__construct($request);
     }
 

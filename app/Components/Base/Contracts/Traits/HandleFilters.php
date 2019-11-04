@@ -4,7 +4,9 @@ namespace App\Components\Base\Contracts\Traits;
 
 interface HandleFilters
 {
-	public function storeFilters(array $filters);
+	public function setFilters(array $filters) : void;
 
-	public function allowFilters(array $filters);
+	public function getFilters() : array;
+
+    public function setAllowedFilters(array $filters) : void;
 }

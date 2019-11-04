@@ -15,6 +15,14 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
     public function __construct(User $model, UserResource $resource, UserCollection $collection)
     {
         parent::__construct($model, $resource, $collection);
+
+        $this->specialExpansions = [
+            'published' => [
+                'posts' => function ($query) {
+                    $query->published();
+                }
+            ]
+        ];
     }
 
     public function create(array $data)
@@ -28,16 +36,16 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
     {
         $user = auth()->user();
 
-		$result = $this->resource->make($user);
+        $result = $this->resource->make($user);
 
-		return $result;
+        return $result;
     }
 
     public function getBySlug(string $slug)
     {
         $user = $this->model::where('slug', '=', $slug)
-            ->with($this->expansions)
-            ->first();
+            ->with($this->getExpansions())
+            ->firstOrFail();
 
         $result = $this->resource->make($user);
 

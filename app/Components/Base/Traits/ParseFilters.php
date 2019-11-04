@@ -13,11 +13,11 @@ trait ParseFilters
 
     public function parseFilters(Request $request, HandleFilters $repository) : void
     {
-        $this->repository->allowFilters($this->allowedFilters);
+        $this->repository->setAllowedFilters($this->allowedFilters);
 
         $filters = $this->retrieveFilters($request);
 
-        $repository->storeFilters($filters);
+        $repository->setFilters($filters);
     }
 
     private function retrieveFilters(Request $request) : array
