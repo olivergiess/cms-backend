@@ -13,7 +13,7 @@ class PostUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return TRUE;
     }
 
     /**
@@ -24,9 +24,10 @@ class PostUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'string',
-            'body' => 'string',
-            'publish_at' => 'date_format:Y-m-d',
+            'title'       => 'string',
+            'cover_image' => 'url',
+            'body'        => 'string',
+            'publish_at'  => 'date_format:Y-m-d',
         ];
     }
 }

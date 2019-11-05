@@ -6,9 +6,6 @@ class PostsTableSeeder extends Seeder
 {
     public function run()
     {
-        $posts = factory(\App\Models\Post::class)->create([
-            'email' => 'test@test.com',
-            'slug' => 'test',
-        ]);
+        $posts = factory(App\Models\Post::class, 10)->create();
     }
 }

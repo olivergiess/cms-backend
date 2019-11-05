@@ -13,7 +13,7 @@ class PostStoreRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return TRUE;
     }
 
     /**
@@ -24,9 +24,10 @@ class PostStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|string',
-            'body' => 'required|string',
-            'publish_at' => 'required|date_format:Y-m-d',
+            'title'       => 'required|string',
+            'cover_image' => 'required|url',
+            'body'        => 'required|string',
+            'publish_at'  => 'required|date_format:Y-m-d',
         ];
     }
 }

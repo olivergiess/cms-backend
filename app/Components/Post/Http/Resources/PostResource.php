@@ -20,14 +20,15 @@ class PostResource extends BaseResource
     protected function structure()
     {
         return [
-            'type'       => 'post',
-            'id'         => $this->id,
-            'title'      => $this->title,
-            'body'       => $this->body,
-            'publish_at' => $this->publish_at,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-            'user_id'    => $this->user_id,
+            'type'        => 'post',
+            'id'          => $this->id,
+            'title'       => $this->title,
+            'cover_image' => $this->cover_image,
+            'body'        => $this->body,
+            'publish_at'  => $this->publish_at,
+            'created_at'  => $this->created_at,
+            'updated_at'  => $this->updated_at,
+            'user_id'     => $this->user_id,
         ] ;
     }
 }

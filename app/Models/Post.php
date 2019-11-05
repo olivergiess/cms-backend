@@ -11,6 +11,7 @@ class Post extends Base
 
     protected $fillable = [
         'title',
+        'cover_image',
         'body',
         'publish_at',
         'user_id'
