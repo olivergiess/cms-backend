@@ -4,7 +4,7 @@ namespace App\Components\User\Http\Resources;
 
 use App\Components\Base\Http\Resources\BaseResource;
 use App\Models\User;
-use App\Components\Post\Http\Resources\PostCollection;
+use App\Components\Blog\Http\Resources\BlogCollection;
 
 class UserResource extends BaseResource
 {
@@ -14,7 +14,7 @@ class UserResource extends BaseResource
     }
 
     protected $relations = [
-    	'posts' => PostCollection::class
+    	'blogs' => BlogCollection::class
 	];
 
     protected function structure()
@@ -25,7 +25,8 @@ class UserResource extends BaseResource
             'first_name' => $this->first_name,
             'last_name'  => $this->last_name,
             'email'      => $this->email,
-            'slug'       => $this->slug,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }

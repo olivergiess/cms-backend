@@ -20,17 +20,17 @@ class PublishedController extends BaseController
         parent::__construct($request);
     }
 
-    public function all(Request $request)
-    {
-        $posts = $this->repository->allPublished();
-
-        return $posts;
-    }
-
     public function show(int $id, Request $request)
     {
         $post = $this->repository->showPublished($id);
 
         return $post;
+    }
+
+    public function all(Request $request)
+    {
+        $posts = $this->repository->allPublished();
+
+        return $posts;
     }
 }

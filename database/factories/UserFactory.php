@@ -7,7 +7,6 @@ $factory->define(App\Models\User::class, function (Faker $faker) {
 		'first_name' => $faker->firstName,
 		'last_name'  => $faker->lastName,
 		'email'      => $faker->email,
-        'slug'       => $faker->word,
 		'password'   => Hash::make('password'),
     ];
 });

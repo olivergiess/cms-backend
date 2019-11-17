@@ -33,8 +33,8 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
         return [];
     }
 
-    public function posts()
+    public function blogs()
     {
-        return $this->hasMany(Post::class);
+        return $this->hasMany(Blog::class);
     }
 }

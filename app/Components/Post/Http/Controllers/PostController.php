@@ -16,19 +16,30 @@ class PostController extends BaseController
         $this->repository = $repository;
 
         $this->allowedExpansions = [
-            'user'
+            'blog',
+            'blog.user'
+        ];
+
+        $this->allowedFilters = [
+            'blog.user.id'
         ];
 
         parent::__construct($request);
-    }
 
-    public function all(Request $request)
-    {
         $user_id = $request->user()->id;
 
-        $posts = $this->repository->all(['user_id' => $user_id]);
+        $this->repository->setFilters([
+            'blog.user.id' => $user_id
+        ]);
+    }
 
-        return $posts;
+    public function store(PostStoreRequest $request)
+    {
+        $data = $request->validated();
+
+        $post = $this->repository->create($data);
+
+        return $post;
     }
 
     public function show(int $id)
@@ -38,15 +49,11 @@ class PostController extends BaseController
         return $post;
     }
 
-    public function store(PostStoreRequest $request)
+    public function all(Request $request)
     {
-        $data = $request->validated();
+        $posts = $this->repository->all();
 
-        $data['user_id'] = $request->user()->id;
-
-        $post = $this->repository->create($data);
-
-        return $post;
+        return $posts;
     }
 
     public function update(int $id, PostUpdateRequest $request)

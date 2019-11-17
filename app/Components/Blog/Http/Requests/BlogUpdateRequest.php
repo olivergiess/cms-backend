@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Components\Post\Http\Requests;
+namespace App\Components\Blog\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PostUpdateRequest extends FormRequest
+class BlogUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,10 @@ class PostUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'       => 'string',
-            'cover_image' => 'url',
-            'body'        => 'string',
-            'publish_at'  => 'date_format:Y-m-d',
-            'blog_id'     => 'integer|exists:blogs,id|own:App\Components\Blog\Http\Resources\BlogResource'
+            'url_identifier' => 'string|alpha|min:3|max:10|unique:blogs',
+            'name'           => 'string',
+            'cover_image'    => 'url',
+            'about'          => 'string',
         ];
     }
 }

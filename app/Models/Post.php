@@ -14,16 +14,18 @@ class Post extends Base
         'cover_image',
         'body',
         'publish_at',
-        'user_id'
+        'blog_id'
     ];
 
     public function scopePublished($query)
     {
-        return $query->where('publish_at', '<=', Carbon::now()->toDateTimeString());
+        return $query
+            ->where('publish_at', '<=', Carbon::now()->toDateTimeString())
+            ->orderBy('publish_at', 'DESC');
     }
 
-    public function user()
+    public function blog()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Blog::class);
     }
 }

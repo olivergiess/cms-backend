@@ -28,14 +28,15 @@ abstract class EloquentBaseRepository implements BaseRepository, HandleExpansion
         $this->collection = $collection;
     }
 
-    public function all(array $where = [])
+    public function create(array $data)
     {
-        $models = $this->model::where($where)
-            ->with($this->getExpansions())
-            ->filters($this->filters)
-            ->get();
+        $model = $this->model->create($data);
 
-        $result = $this->collection->make($models);
+        $model->refresh();
+
+        $model->load($this->getExpansions());
+
+        $result = $this->resource->make($model);
 
         return $result;
     }
@@ -51,15 +52,14 @@ abstract class EloquentBaseRepository implements BaseRepository, HandleExpansion
         return $result;
     }
 
-    public function create(array $data)
+    public function all(array $where = [])
     {
-        $model = $this->model->create($data);
+        $models = $this->model::where($where)
+            ->with($this->getExpansions())
+            ->filters($this->filters)
+            ->get();
 
-        $model->refresh();
-
-        $model->load($this->getExpansions());
-
-        $result = $this->resource->make($model);
+        $result = $this->collection->make($models);
 
         return $result;
     }

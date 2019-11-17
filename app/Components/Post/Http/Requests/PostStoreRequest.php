@@ -28,6 +28,7 @@ class PostStoreRequest extends FormRequest
             'cover_image' => 'required|url',
             'body'        => 'required|string',
             'publish_at'  => 'required|date_format:Y-m-d',
+            'blog_id'     => 'required|integer|exists:blogs,id|own:App\Components\Blog\Http\Resources\BlogResource'
         ];
     }
 }

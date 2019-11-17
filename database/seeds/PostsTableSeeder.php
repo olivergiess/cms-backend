@@ -6,6 +6,6 @@ class PostsTableSeeder extends Seeder
 {
     public function run()
     {
-        $posts = factory(App\Models\Post::class, 10)->create();
+        $posts = factory(App\Models\Post::class, 200)->create();
     }
 }

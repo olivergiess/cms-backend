@@ -15,7 +15,6 @@ class CurrentUpdateRequest extends FormRequest
     {
         return [
             'email' => 'email',
-            'slug' => 'string|alpha|min:3|max:10',
         ];
     }
 }

@@ -21,6 +21,7 @@ class EloquentPostRepository extends EloquentBaseRepository implements PostRepos
         $posts = $this->model::with($this->getExpansions())
             ->filters($this->getFilters())
             ->published()
+            ->orderBy('title', 'asc')
             ->get();
 
         $result = $this->collection->make($posts);

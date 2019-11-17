@@ -13,9 +13,11 @@
 Route::post('/auth/login', 'Auth\Http\Controllers\AuthController@login');
 Route::post('/auth/refresh', 'Auth\Http\Controllers\AuthController@refresh');
 
-// User
+// Users
 Route::post('/users', 'User\Http\Controllers\UserController@store');
-Route::get('/users/{slug}', 'User\Http\Controllers\SlugController@show');
+
+// Blogs
+Route::get('/blogs/{url_identifier}', 'Blog\Http\Controllers\URLIdentifierController@show');
 
 // Posts
 Route::get('/posts/published', 'Post\Http\Controllers\PublishedController@all');

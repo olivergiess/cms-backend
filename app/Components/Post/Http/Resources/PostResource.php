@@ -4,7 +4,7 @@ namespace App\Components\Post\Http\Resources;
 
 use App\Components\Base\Http\Resources\BaseResource;
 use App\Models\Post;
-use App\Components\User\Http\Resources\UserResource;
+use App\Components\Blog\Http\Resources\BlogResource;
 
 class PostResource extends BaseResource
 {
@@ -14,7 +14,7 @@ class PostResource extends BaseResource
     }
 
     protected $relations = [
-    	'user' => UserResource::class
+    	'blog' => BlogResource::class
 	];
 
     protected function structure()
@@ -28,7 +28,7 @@ class PostResource extends BaseResource
             'publish_at'  => $this->publish_at,
             'created_at'  => $this->created_at,
             'updated_at'  => $this->updated_at,
-            'user_id'     => $this->user_id,
+            'blog_id'     => $this->blog_id,
         ] ;
     }
 }

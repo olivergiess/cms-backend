@@ -18,7 +18,6 @@ class UserStoreRequest extends FormRequest
             'last_name'     => 'required|string|alpha',
             'email'         => 'required|email|unique:users,email',
             'password'      => 'required|string|min:8',
-            'slug'          => 'required|unique:users,slug|string|alpha|min:3|max:10',
             'date_of_birth' => 'date|date_format:YYYY-MM-DD',
         ];
     }
