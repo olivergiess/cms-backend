@@ -24,12 +24,6 @@ class BlogController extends BaseController
         ];
 
         parent::__construct($request);
-
-        $user_id = $request->user()->id;
-
-        $this->repository->setFilters([
-            'user.id' => $user_id
-        ]);
     }
 
     public function store(BlogStoreRequest $request)
@@ -54,7 +48,11 @@ class BlogController extends BaseController
     {
         $user_id = $request->user()->id;
 
-        $blogs = $this->repository->all(['user_id' => $user_id]);
+        $this->repository->setFilters([
+            'user.id' => $user_id
+        ]);
+
+        $blogs = $this->repository->all();
 
         return $blogs;
     }

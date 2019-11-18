@@ -27,21 +27,10 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middlewareGroups = [
-        'web' => [
-            \App\Middleware\EncryptCookies::class,
-            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            \Illuminate\Session\Middleware\StartSession::class,
-            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \App\Middleware\VerifyCsrfToken::class,
-            \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        ],
-
         'api' => [
+            'json',
+            'cors',
             'throttle:60,1',
-            'bindings',
-            \App\Http\Middleware\JsonAcceptHeader::class,
-			\Barryvdh\Cors\HandleCors::class,
-			\Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class
         ],
     ];
 
@@ -53,15 +42,12 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' => \App\Middleware\Authenticate::class,
-        'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
+        'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
-        'guest' => \App\Middleware\RedirectIfAuthenticated::class,
-        'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
+        'cors' => \Barryvdh\Cors\HandleCors::class,
+        'json' => \App\Http\Middleware\JsonAcceptHeader::class,
+        'test' => \App\Middleware\Testing::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
     ];
 
     /**
@@ -72,14 +58,9 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middlewarePriority = [
-        \Illuminate\Session\Middleware\StartSession::class,
-        \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-        \App\Middleware\JsonAcceptHeader::class,
-		\Barryvdh\Cors\HandleCors::class,
-        \App\Middleware\Authenticate::class,
+        \App\Http\Middleware\JsonAcceptHeader::class,
+        \Barryvdh\Cors\HandleCors::class,
         \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        \Illuminate\Session\Middleware\AuthenticateSession::class,
-        \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        \Illuminate\Auth\Middleware\Authorize::class,
+        \Illuminate\Auth\Middleware\Authenticate::class,
     ];
 }

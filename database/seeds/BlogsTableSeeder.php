@@ -6,6 +6,8 @@ class BlogsTableSeeder extends Seeder
 {
     public function run()
     {
-        $blog = factory(App\Models\Blog::class)->create();
+        $blog = factory(App\Models\Blog::class)->create([
+            'url_identifier' => 'test'
+        ]);
     }
 }

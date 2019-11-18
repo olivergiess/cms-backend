@@ -25,12 +25,6 @@ class PostController extends BaseController
         ];
 
         parent::__construct($request);
-
-        $user_id = $request->user()->id;
-
-        $this->repository->setFilters([
-            'blog.user.id' => $user_id
-        ]);
     }
 
     public function store(PostStoreRequest $request)
@@ -51,6 +45,12 @@ class PostController extends BaseController
 
     public function all(Request $request)
     {
+        $user_id = $request->user()->id;
+
+        $this->repository->setFilters([
+            'blog.user.id' => $user_id
+        ]);
+
         $posts = $this->repository->all();
 
         return $posts;
