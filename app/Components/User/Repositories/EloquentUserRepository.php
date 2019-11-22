@@ -28,6 +28,8 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
     {
         $user = auth()->user();
 
+        $user->load($this->getExpansions());
+
         $result = $this->resource->make($user);
 
         return $result;

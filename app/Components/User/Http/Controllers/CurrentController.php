@@ -11,6 +11,10 @@ use App\Components\User\Http\Requests\CurrentUpdateRequest;
 
 class CurrentController extends BaseController
 {
+    protected $allowedExpansions = [
+        'blogs.posts'
+    ];
+
     public function __construct(Request $request, UserRepository $repository)
     {
         $this->repository = $repository;
