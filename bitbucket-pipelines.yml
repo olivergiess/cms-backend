@@ -1,0 +1,17 @@
+image: php:latest
+
+pipelines:
+  branches:
+    production:
+      - step:
+          deployment: production
+          name: rsync
+          script:
+            - apt-get update && apt-get install -qy curl rsync git zip unzip
+            - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+            - composer install --optimize-autoloader --no-dev
+            - ssh $DEPLOY_USER@$DEPLOY_HOST "sudo /home/$DEPLOY_USER/$TAKE_PRIVILEGES"
+            - rsync -rlvz --delete --exclude=.env $BITBUCKET_CLONE_DIR/ $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH
+            - ssh $DEPLOY_USER@$DEPLOY_HOST "sudo /home/$DEPLOY_USER/$RETURN_PRIVILEGES"
+            - ssh $DEPLOY_USER@$DEPLOY_HOST php $DEPLOY_PATH/artisan config:cache
+            - ssh $DEPLOY_USER@$DEPLOY_HOST php $DEPLOY_PATH/artisan route:cache
