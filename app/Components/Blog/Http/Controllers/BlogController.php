@@ -6,6 +6,7 @@ use App\Components\Base\Http\Controllers\BaseController;
 
 use App\Components\Blog\Contracts\Repositories\BlogRepository;
 use App\Components\Blog\Http\Requests\BlogStoreRequest;
+use App\Components\Blog\Http\Requests\BlogUpdateRequest;
 use Illuminate\Http\Request;
 
 class BlogController extends BaseController
