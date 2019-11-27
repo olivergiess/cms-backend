@@ -4,9 +4,10 @@ namespace App\Components\User\Http\Controllers;
 
 use App\Components\Base\Http\Controllers\BaseController;
 
+use Illuminate\Http\Request;
 use App\Components\User\Contracts\Repositories\UserRepository;
 use App\Components\User\Http\Requests\UserStoreRequest;
-use Illuminate\Http\Request;
+use App\Components\User\Http\Requests\UserVerifyRequest;
 
 class UserController extends BaseController
 {
@@ -22,5 +23,14 @@ class UserController extends BaseController
         $data = $request->validated();
 
         return $this->repository->create($data);
+    }
+
+    public function verify(int $id, UserVerifyRequest $request)
+    {
+        $token = $request->token;
+
+        $result = $this->repository->verify($id, $token);
+
+        return $result;
     }
 }

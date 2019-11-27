@@ -10,20 +10,21 @@ use Illuminate\Auth\Authenticatable;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use Illuminate\Support\Facades\Hash;
+
 class User extends Base implements AuthenticatableContract, AuthorizableContract, JWTSubjectContract
 {
-	use Authenticatable, Authorizable, SoftDeletes;
+    use Authenticatable, Authorizable, SoftDeletes;
 
-	protected $fillable = [
-	    'first_name',
+    protected $fillable = [
+        'first_name',
         'last_name',
-	    'email',
+        'email',
         'password',
-        'slug',
-        'date_of_birth',
+        'date_of_birth'
     ];
 
-	public function getJWTIdentifier()
+    public function getJWTIdentifier()
     {
         return $this->getKey();
     }
@@ -36,5 +37,25 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
     public function blogs()
     {
         return $this->hasMany(Blog::class);
+    }
+
+    public function verified()
+    {
+        return (bool)$this->email_verified_at;
+    }
+
+    public function validateToken(string $token)
+    {
+        return Hash::check($this->stringForToken(), $token);
+    }
+
+    public function createToken()
+    {
+        return Hash::make($this->stringForToken());
+    }
+
+    private function stringForToken()
+    {
+        return $this->email.$this->email_verified_at;
     }
 }

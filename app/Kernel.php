@@ -45,9 +45,9 @@ class Kernel extends HttpKernel
         'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'cors' => \Barryvdh\Cors\HandleCors::class,
-        'json' => \App\Http\Middleware\JsonAcceptHeader::class,
-        'test' => \App\Middleware\Testing::class,
+        'json' => \App\Middleware\JsonAcceptHeader::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'verified' => \App\Middleware\UserIsVerified::class,
     ];
 
     /**
@@ -58,7 +58,7 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middlewarePriority = [
-        \App\Http\Middleware\JsonAcceptHeader::class,
+        \App\Middleware\JsonAcceptHeader::class,
         \Barryvdh\Cors\HandleCors::class,
         \Illuminate\Routing\Middleware\ThrottleRequests::class,
         \Illuminate\Auth\Middleware\Authenticate::class,
