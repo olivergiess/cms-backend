@@ -2,9 +2,8 @@ image: php:latest
 
 pipelines:
   branches:
-    production:
+    master:
       - step:
-          deployment: production
           name: rsync
           script:
             - apt-get update && apt-get install -qy curl rsync git zip unzip
