@@ -47,14 +47,14 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
     {
         $user = $this->model->findOrFail($id);
 
-        if($user->verified())
-        {
-            throw new VerificationException(400, 'This User is already verified.');
-        }
-
         if(!$user->validateToken($token))
         {
             throw new VerificationException(400, 'Invalid verification token.');
+        }
+
+        if($user->verified())
+        {
+            throw new VerificationException(400, 'This User is already verified.');
         }
 
         $user->email_verified_at = Carbon::now();

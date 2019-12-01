@@ -20,7 +20,7 @@ class VerificationEmail extends Mailable
     public function __construct($user, $token)
     {
         $this->user  = $user;
-        $this->token = $token;
+        $this->token = urlencode($token);
     }
 
     /**
