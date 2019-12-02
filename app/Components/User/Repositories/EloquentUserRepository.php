@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Hash;
 use App\Events\UserRegistered;
 use App\Exceptions\VerificationException;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\VerificationEmail;
 
 class EloquentUserRepository extends EloquentBaseRepository implements UserRepository
 {
@@ -32,7 +34,7 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
         return $result;
     }
 
-    public function authenticated(array $where = [])
+    public function showAuthenticated(array $where = [])
     {
         $user = auth()->user();
 
@@ -45,14 +47,14 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
 
     public function verify(int $id, string $token)
     {
-        $user = $this->model->findOrFail($id);
+        $user = $this->loadModel($id);
 
         if(!$user->validateToken($token))
         {
             throw new VerificationException(400, 'Invalid verification token.');
         }
 
-        if($user->verified())
+        if($user->is_verified)
         {
             throw new VerificationException(400, 'This User is already verified.');
         }
@@ -65,17 +67,22 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
         return $result;
     }
 
-    public function verified(int $id)
+    public function isVerified(int $id)
     {
-        $user = $this->model->findOrfail($id);
+        $model = $this->loadModel($id);
 
-        return $user->verified();
+        return $model->is_verified;
     }
 
-    public function verificationToken(int $id)
+    public function sendVerificationToken(int $id)
     {
-        $user = $this->model->findOrfail($id);
+        $user = $this->loadModel($id);
 
-        return $user->createToken();
+        $token = $user->createToken();
+
+        Mail::to($user->email)
+            ->send(new VerificationEmail($user, $token));
+
+        return true;
     }
 }

@@ -21,6 +21,8 @@ abstract class EloquentBaseRepository implements BaseRepository, HandleExpansion
     protected $resource;
     protected $collection;
 
+    protected $current;
+
     public function __construct(Base $model, BaseResource $resource, BaseCollection $collection)
     {
         $this->model      = $model;
@@ -43,19 +45,17 @@ abstract class EloquentBaseRepository implements BaseRepository, HandleExpansion
 
     public function show(int $id)
     {
-        $model = $this->model::with($this->getExpansions())
-            ->filters($this->getFilters())
-            ->findOrFail($id);
+        $model = $this->loadModel($id);
 
         $result = $this->resource->make($model);
 
         return $result;
     }
 
-    public function all(array $where = [])
+    public function all()
     {
-        $models = $this->model::where($where)
-            ->with($this->getExpansions())
+        $models = $this->model
+            ::with($this->getExpansions())
             ->filters($this->filters)
             ->get();
 
@@ -66,10 +66,7 @@ abstract class EloquentBaseRepository implements BaseRepository, HandleExpansion
 
     public function update(int $id, array $data)
     {
-        $model = $this->model::with($this->getExpansions())
-            ->findOrFail($id);
-
-        $model->update($data);
+        $model = $this->loadModel($id)->update($data);
 
         $model->refresh();
 
@@ -80,9 +77,21 @@ abstract class EloquentBaseRepository implements BaseRepository, HandleExpansion
 
     public function delete(int $id)
     {
-        $result = $this->model::findOrFail($id)
-            ->delete();
+        $result = $this->loadModel($id)->delete();
 
         return $result;
+    }
+
+    protected function loadModel(int $id)
+    {
+        if(!isset($this->current) || $this->current->id !== $id)
+        {
+            $this->current = $this->model
+                ::with($this->getExpansions())
+                ->filters($this->getFilters())
+                ->findOrFail($id);
+        }
+
+        return $this->current;
     }
 }

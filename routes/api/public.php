@@ -15,7 +15,7 @@ Route::post('/auth/refresh', 'Auth\Http\Controllers\AuthController@refresh');
 
 // Users
 Route::post('/users', 'User\Http\Controllers\UserController@store');
-Route::put('/users/{id}/verify', 'User\Http\Controllers\UserController@verify');
+Route::post('/users/{id}/verification', 'User\Http\Controllers\UserController@sendVerification');
 
 // Blogs
 Route::get('/blogs/{url_identifier}', 'Blog\Http\Controllers\URLIdentifierController@show');

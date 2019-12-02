@@ -2,8 +2,10 @@
 
 namespace App\Middleware;
 
-use App\Components\User\Contracts\Repositories\UserRepository;
+use Illuminate\Http\Request;
 use Closure;
+
+use App\Components\User\Contracts\Repositories\UserRepository;
 use App\Exceptions\VerificationException;
 
 class UserIsVerified
@@ -22,11 +24,11 @@ class UserIsVerified
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
-    	$user = $request->user();
+    	$user = $this->repository->showAuthenticated();
 
-    	if(!$this->repository->verified($user->id))
+    	if(!$this->repository->isVerified($user->id))
         {
             throw new VerificationException(403, 'Your email address is not verified.');
         }

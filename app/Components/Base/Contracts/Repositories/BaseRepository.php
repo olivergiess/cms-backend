@@ -8,7 +8,7 @@ interface BaseRepository
 
     public function show(int $id);
 
-    public function all(array $where);
+    public function all();
 
     public function update(int $id, array $data);
 

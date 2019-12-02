@@ -24,14 +24,14 @@ class CurrentController extends BaseController
 
     public function show()
     {
-        return $this->repository->authenticated();
+        return $this->repository->showAuthenticated();
     }
 
     public function update(CurrentUpdateRequest $request)
     {
         $data = $request->validated();
 
-        $user = $this->repository->authenticated();
+        $user = $this->repository->showAuthenticated();
 
         return $this->repository->update($user->id, $data);
     }

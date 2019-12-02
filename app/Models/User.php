@@ -39,7 +39,7 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
         return $this->hasMany(Blog::class);
     }
 
-    public function verified()
+    public function getIsVerifiedAttribute()
     {
         return (bool)$this->email_verified_at;
     }
@@ -56,6 +56,6 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
 
     private function stringForToken()
     {
-        return $this->email.$this->email_verified_at;
+        return $this->email;
     }
 }
