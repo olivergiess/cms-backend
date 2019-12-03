@@ -4,8 +4,9 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-use App\Rules\Own;
 use Illuminate\Support\Facades\Validator;
+use App\Rules\Own;
+use App\Rules\VerifySignature;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -33,6 +34,21 @@ class AppServiceProvider extends ServiceProvider
             $can = new Own($parameters[0]);
 
             return $can->passes($attribute, $value);
+        });
+
+        Validator::extend('signature', function ($attribute, $value, $parameters, $validator) {
+            $data = $validator->getData();
+
+            $items = [];
+
+            foreach($parameters as $param)
+            {
+                $items[] = $data[$param];
+            }
+
+            $verifySignature = new VerifySignature($items);
+
+            return $verifySignature->passes($attribute, $value);
         });
     }
 }

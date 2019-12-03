@@ -9,18 +9,22 @@ class VerificationEmail extends Mailable
 {
     use Queueable;
 
-    public $user;
-    public $token;
+    public $name;
+    public $expiry;
+    public $email;
+    public $signature;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($user, $token)
+    public function __construct($name, $email, $expiry, $signature)
     {
-        $this->user  = $user;
-        $this->token = urlencode($token);
+        $this->name      = $name;
+        $this->email     = urlencode($email);
+        $this->expiry    = urlencode($expiry);
+        $this->signature = urlencode($signature);
     }
 
     /**

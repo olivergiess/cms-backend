@@ -5,6 +5,7 @@ namespace App\Components\User\Repositories;
 use App\Components\Base\Repositories\EloquentBaseRepository;
 use App\Components\User\Contracts\Repositories\UserRepository;
 
+use App\Libraries\Signing;
 use App\Models\User;
 use App\Components\User\Http\Resources\UserResource;
 use App\Components\User\Http\Resources\UserCollection;
@@ -45,14 +46,9 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
         return $result;
     }
 
-    public function verify(int $id, string $token)
+    public function verify(string $email)
     {
-        $user = $this->loadModel($id);
-
-        if(!$user->validateToken($token))
-        {
-            throw new VerificationException(400, 'Invalid verification token.');
-        }
+        $user = $this->model::where('email', $email)->firstOrFail();
 
         if($user->is_verified)
         {
@@ -74,14 +70,19 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
         return $model->is_verified;
     }
 
-    public function sendVerificationToken(int $id)
+    public function sendVerification(string $email)
     {
-        $user = $this->loadModel($id);
+        $user = $this->model::where('email', $email)->firstOrFail();
 
-        $token = $user->createToken();
+        $expiry = Carbon::now()->addHours(24);
+
+        $signature = Signing::signArray([
+            $user->email,
+            $expiry
+        ]);
 
         Mail::to($user->email)
-            ->send(new VerificationEmail($user, $token));
+            ->send(new VerificationEmail($user->first_name, $user->email, $expiry, $signature));
 
         return true;
     }

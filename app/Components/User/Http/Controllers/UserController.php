@@ -25,11 +25,11 @@ class UserController extends BaseController
         return $this->repository->create($data);
     }
 
-    public function verify(int $id, UserVerifyRequest $request)
+    public function verify(UserVerifyRequest $request)
     {
-        $token = $request->token;
+        $data = $request->validated();
 
-        $result = $this->repository->verify($id, $token);
+        $result = $this->repository->verify($data['email'], $data['expiry']);
 
         return $result;
     }

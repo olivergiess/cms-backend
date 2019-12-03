@@ -4,19 +4,21 @@ namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 
-class Own implements Rule
+use App\Libraries\Signing;
+
+class VerifySignature implements Rule
 {
-    protected $resource;
+    protected $items;
 
     /**
      * Create a new rule instance.
      *
-     * @param  mixed  $resource
+     * @param  mixed  $items
      * @return void
      */
-    public function __construct($resource)
+    public function __construct($items)
     {
-        $this->resource = $resource;
+        $this->items = $items;
     }
 
     /**
@@ -28,9 +30,7 @@ class Own implements Rule
      */
     public function passes($attribute, $value)
     {
-        $user = auth()->user();
-
-        return $user->can('owns', [$this->resource, $value]);
+        return $value === Signing::signArray($this->items);
     }
 
     /**
@@ -40,6 +40,6 @@ class Own implements Rule
      */
     public function message()
     {
-        return 'You must own :attribute';
+        return 'The :attribute is invalid';
     }
 }

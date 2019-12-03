@@ -43,19 +43,4 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
     {
         return (bool)$this->email_verified_at;
     }
-
-    public function validateToken(string $token)
-    {
-        return Hash::check($this->stringForToken(), $token);
-    }
-
-    public function createToken()
-    {
-        return Hash::make($this->stringForToken());
-    }
-
-    private function stringForToken()
-    {
-        return $this->email;
-    }
 }

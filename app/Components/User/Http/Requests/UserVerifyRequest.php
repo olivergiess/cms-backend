@@ -14,7 +14,9 @@ class UserVerifyRequest extends FormRequest
     public function rules()
     {
         return [
-            'token' => 'required|string',
+            'expiry' => 'required|date|after:now',
+            'email'  => 'required|email',
+            'token'  => 'required|string|signature:email,expiry'
         ];
     }
 }
