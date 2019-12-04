@@ -10,6 +10,7 @@
 |
 */
 
+Route::post('/auth/refresh', 'Auth\Http\Controllers\AuthController@refresh');
 Route::post('/auth/logout', 'Auth\Http\Controllers\AuthController@logout');
 
 Route::get('/user/current', 'User\Http\Controllers\CurrentController@show');
