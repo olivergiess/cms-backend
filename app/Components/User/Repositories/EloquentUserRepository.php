@@ -52,15 +52,13 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
 
         if($user->is_verified)
         {
-            throw new VerificationException(400, 'This User is already verified.');
+            throw new VerificationException(403, 'This User is already verified.');
         }
 
         $user->email_verified_at = Carbon::now();
         $user->save();
 
-        $result = $this->resource->make($user);
-
-        return $result;
+        return true;
     }
 
     public function isVerified(int $id)
@@ -74,7 +72,7 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
     {
         $user = $this->model::where('email', $email)->firstOrFail();
 
-        $expiry = Carbon::now()->addHours(24);
+        $expiry = Carbon::now()->addHours(24)->timestamp;
 
         $signature = Signing::signArray([
             $user->email,

@@ -22,8 +22,8 @@ class VerificationEmail extends Mailable
     public function __construct($name, $email, $expiry, $signature)
     {
         $this->name      = $name;
-        $this->email     = urlencode($email);
-        $this->expiry    = urlencode($expiry);
+        $this->email     = $email;
+        $this->expiry    = $expiry;
         $this->signature = urlencode($signature);
     }
 

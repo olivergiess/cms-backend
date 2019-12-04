@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Components\User\Http\Requests;
+namespace App\Components\Auth\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserVerifyRequest extends FormRequest
+class VerificationVerifyRequest extends FormRequest
 {
     public function authorize()
     {
@@ -14,7 +14,7 @@ class UserVerifyRequest extends FormRequest
     public function rules()
     {
         return [
-            'expiry' => 'required|date|after:now',
+            'expiry' => 'required|int|after:now',
             'email'  => 'required|email',
             'token'  => 'required|string|signature:email,expiry'
         ];
