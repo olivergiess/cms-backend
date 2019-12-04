@@ -14,7 +14,7 @@ class VerificationVerifyRequest extends FormRequest
     public function rules()
     {
         return [
-            'expiry' => 'required|int|after:now',
+            'expiry' => 'required|int',
             'email'  => 'required|email',
             'token'  => 'required|string|signature:email,expiry'
         ];
