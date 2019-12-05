@@ -45,6 +45,7 @@ class Kernel extends HttpKernel
         'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'cors' => \Barryvdh\Cors\HandleCors::class,
+        'has-token' => \App\Middleware\CheckForToken::class,
         'json' => \App\Middleware\JsonAcceptHeader::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \App\Middleware\UserIsVerified::class,
