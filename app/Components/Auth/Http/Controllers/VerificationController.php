@@ -28,7 +28,7 @@ class VerificationController extends BaseController
 
     public function verify(VerificationVerifyRequest $request)
     {
-        $this->repository->verify($request->email, $request->expiry, $request->signature);
+        $this->repository->verify($request->email, $request->expiry, $request->token);
 
         return response()->json([])->status(204);
     }

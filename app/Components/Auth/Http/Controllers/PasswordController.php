@@ -26,7 +26,7 @@ class PasswordController extends BaseController
 
     public function reset(PasswordResetRequest $request)
 	{
-		$this->repository->reset($request->email, $request->expiry, $request->signature, $request->password);
+		$this->repository->reset($request->email, $request->expiry, $request->token, $request->password);
 
 		return response()->json([])->status(204);
 	}
