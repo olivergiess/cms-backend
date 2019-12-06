@@ -8,7 +8,7 @@ use Closure;
 use App\Components\User\Contracts\Repositories\UserRepository;
 use App\Exceptions\VerificationException;
 
-class UserIsVerified
+class CheckIfVerified
 {
     protected $repository;
 
@@ -28,7 +28,7 @@ class UserIsVerified
     {
     	$user = $this->repository->showAuthenticated();
 
-    	if(!$this->repository->isVerified($user->id))
+    	if(!$user->is_verified)
         {
             throw new VerificationException(403, 'Your email address is not verified.');
         }

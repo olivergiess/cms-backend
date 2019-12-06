@@ -4,7 +4,7 @@ namespace App\Components\Auth\Http\Controllers;
 
 use App\Components\Base\Http\Controllers\BaseController;
 
-use App\Components\User\Contracts\Repositories\UserRepository;
+use App\Components\Auth\Contracts\Repositories\VerificationRepository;
 use App\Components\Auth\Http\Requests\VerificationSendRequest;
 use App\Components\Auth\Http\Requests\VerificationVerifyRequest;
 
@@ -12,7 +12,7 @@ class VerificationController extends BaseController
 {
 	protected $repository;
 
-	public function __construct(UserRepository $repository)
+	public function __construct(VerificationRepository $repository)
 	{
 		$this->repository = $repository;
 	}
@@ -21,17 +21,15 @@ class VerificationController extends BaseController
     {
         $email = $request->email;
 
-        $this->repository->sendVerification($email);
+        $this->repository->send($email);
 
         return response()->json([])->status(204);
     }
 
     public function verify(VerificationVerifyRequest $request)
     {
-        $data = $request->validated();
+        $this->repository->verify($request->email, $request->expiry, $request->signature);
 
-        $this->repository->verify($data['email'], $data['expiry']);
-
-        return response()->status(204);
+        return response()->json([])->status(204);
     }
 }

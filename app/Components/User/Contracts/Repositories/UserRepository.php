@@ -8,9 +8,7 @@ interface UserRepository extends BaseRepository
 {
 	public function showAuthenticated(array $where);
 
-	public function verify(string $email);
+	public function showByEmail(string $email);
 
-    public function isVerified(int $id);
-
-	public function sendVerification(string $email);
+	public function updatePassword(int $id, string $password);
 }

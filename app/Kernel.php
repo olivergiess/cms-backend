@@ -48,7 +48,7 @@ class Kernel extends HttpKernel
         'has-token' => \App\Middleware\CheckForToken::class,
         'json' => \App\Middleware\JsonAcceptHeader::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'verified' => \App\Middleware\UserIsVerified::class,
+        'verified' => \App\Middleware\CheckIfVerified::class,
     ];
 
     /**

@@ -21,7 +21,8 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
         'last_name',
         'email',
         'password',
-        'date_of_birth'
+        'date_of_birth',
+        'email_verified_at'
     ];
 
     public function getJWTIdentifier()
@@ -42,5 +43,10 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
     public function getIsVerifiedAttribute()
     {
         return (bool)$this->email_verified_at;
+    }
+
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = Hash::make($value);
     }
 }

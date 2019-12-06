@@ -4,7 +4,7 @@ namespace App\Components\Auth\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class VerificationVerifyRequest extends FormRequest
+class PasswordSendRequest extends FormRequest
 {
     public function authorize()
     {
@@ -14,9 +14,7 @@ class VerificationVerifyRequest extends FormRequest
     public function rules()
     {
         return [
-            'email'      => 'required|email',
-            'expiry'     => 'required|int',
-            'signature'  => 'required|string'
+            'email' => 'required|email',
         ];
     }
 }

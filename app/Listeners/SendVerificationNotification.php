@@ -2,14 +2,14 @@
 
 namespace App\Listeners;
 
-use App\Components\User\Contracts\Repositories\UserRepository;
+use App\Components\Auth\Contracts\Repositories\PasswordRepository;
 use App\Events\UserRegistered;
 
 class SendVerificationNotification
 {
     protected $repository;
 
-    public function __construct(UserRepository $repository)
+    public function __construct(PasswordRepository $repository)
     {
         $this->repository = $repository;
     }
@@ -18,6 +18,6 @@ class SendVerificationNotification
     {
         $user = $event->user;
 
-        $this->repository->sendVerificationToken($user->id);
+        $this->repository->send($user->email);
     }
 }

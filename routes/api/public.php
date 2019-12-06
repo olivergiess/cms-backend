@@ -14,6 +14,8 @@ Route::post('/auth/login', 'Auth\Http\Controllers\AuthController@login');
 Route::post('/auth/refresh', 'Auth\Http\Controllers\AuthController@refresh')->middleware('has-token');
 Route::post('/auth/verification', 'Auth\Http\Controllers\VerificationController@send');
 Route::put('/auth/verification', 'Auth\Http\Controllers\VerificationController@verify');
+Route::post('/auth/password', 'Auth\Http\Controllers\PasswordController@send');
+Route::put('/auth/password', 'Auth\Http\Controllers\PasswordController@reset');
 
 // Users
 Route::post('/users', 'User\Http\Controllers\UserController@store');

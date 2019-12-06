@@ -5,17 +5,12 @@ namespace App\Components\User\Repositories;
 use App\Components\Base\Repositories\EloquentBaseRepository;
 use App\Components\User\Contracts\Repositories\UserRepository;
 
-use App\Libraries\Signing;
 use App\Models\User;
 use App\Components\User\Http\Resources\UserResource;
 use App\Components\User\Http\Resources\UserCollection;
 
 use Illuminate\Support\Facades\Hash;
 use App\Events\UserRegistered;
-use App\Exceptions\VerificationException;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\VerificationEmail;
 
 class EloquentUserRepository extends EloquentBaseRepository implements UserRepository
 {
@@ -46,42 +41,24 @@ class EloquentUserRepository extends EloquentBaseRepository implements UserRepos
         return $result;
     }
 
-    public function verify(string $email)
+    public function showByEmail(string $email)
     {
-        $user = $this->model::where('email', $email)->firstOrFail();
+        $user = $this->loadModel($email, 'email');
 
-        if($user->is_verified)
-        {
-            throw new VerificationException(403, 'This User is already verified.');
-        }
+        $result = $this->resource->make($user);
 
-        $user->email_verified_at = Carbon::now();
+        return $result;
+    }
+
+    public function updatePassword(int $id, string $password)
+    {
+        $user = $this->loadModel($id);
+
+        $user->password = $password;
         $user->save();
 
-        return true;
-    }
+        $result = $this->resource->make($user);
 
-    public function isVerified(int $id)
-    {
-        $model = $this->loadModel($id);
-
-        return $model->is_verified;
-    }
-
-    public function sendVerification(string $email)
-    {
-        $user = $this->model::where('email', $email)->firstOrFail();
-
-        $expiry = Carbon::now()->addHours(24)->timestamp;
-
-        $signature = Signing::signArray([
-            $user->email,
-            $expiry
-        ]);
-
-        Mail::to($user->email)
-            ->send(new VerificationEmail($user->first_name, $user->email, $expiry, $signature));
-
-        return true;
+        return $result;
     }
 }
