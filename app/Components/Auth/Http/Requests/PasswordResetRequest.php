@@ -13,11 +13,11 @@ class PasswordResetRequest extends FormRequest
 
     public function rules()
     {
-		return [
-		    'email'     => 'required|email',
-            'expiry'    => 'required|int',
-            'signature' => 'required|string',
-            'password'  => 'required|string'
+        return [
+            'email'    => 'required|email',
+            'expiry'   => 'required|int',
+            'token'    => 'required|string',
+            'password' => 'required|string'
         ];
     }
 }

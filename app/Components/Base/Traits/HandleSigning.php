@@ -19,7 +19,7 @@ trait HandleSigning
     {
         if($signature !== $this->createSignature($payload))
         {
-            throw new SignatureException(403, 'Invalid signature');
+            throw new SignatureException(403, 'Invalid token.');
         }
     }
 
@@ -27,7 +27,7 @@ trait HandleSigning
     {
         if($expiry < $this->getNow())
         {
-            throw new SignatureException(403, 'Signature has expired.');
+            throw new SignatureException(403, 'Token has expired.');
         }
     }
 
