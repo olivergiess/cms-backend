@@ -86,7 +86,7 @@ abstract class EloquentBaseRepository implements BaseRepository, HandleExpansion
 
     protected function loadModel($value, string $field = 'id')
     {
-        if(!isset($this->current) || $this->current->id !== $value)
+        if(!isset($this->current) || (isset($this->current->$field) && $this->current->$field !== $value))
         {
             $this->current = $this->model
                 ::with($this->getExpansions())
