@@ -25,7 +25,7 @@ trait HandleSigning
 
     private function checkExpiry(int $expiry)
     {
-        if($expiry > $this->getNow())
+        if($expiry < $this->getNow())
         {
             throw new SignatureException(403, 'Signature has expired.');
         }

@@ -2,14 +2,14 @@
 
 namespace App\Listeners;
 
-use App\Components\Auth\Contracts\Repositories\PasswordRepository;
+use App\Components\Auth\Contracts\Repositories\VerificationRepository;
 use App\Events\UserRegistered;
 
 class SendVerificationNotification
 {
     protected $repository;
 
-    public function __construct(PasswordRepository $repository)
+    public function __construct(VerificationRepository $repository)
     {
         $this->repository = $repository;
     }

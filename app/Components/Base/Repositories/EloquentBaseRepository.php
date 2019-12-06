@@ -66,7 +66,9 @@ abstract class EloquentBaseRepository implements BaseRepository, HandleExpansion
 
     public function update(int $id, array $data)
     {
-        $model = $this->loadModel($id)->update($data);
+        $model = $this->loadModel($id);
+
+        $model->update($data);
 
         $model->refresh();
 
@@ -82,7 +84,7 @@ abstract class EloquentBaseRepository implements BaseRepository, HandleExpansion
         return $result;
     }
 
-    protected function loadModel(int $value, string $field = 'id')
+    protected function loadModel($value, string $field = 'id')
     {
         if(!isset($this->current) || $this->current->id !== $value)
         {

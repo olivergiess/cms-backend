@@ -9,6 +9,8 @@ use App\Components\User\Contracts\Repositories\UserRepository;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\VerificationEmail;
 use App\Exceptions\VerificationException;
+use App\Components\User\Http\Resources\UserResource;
+use Carbon\Carbon;
 
 class MailVerificationRepository implements VerificationRepository
 {
@@ -31,7 +33,7 @@ class MailVerificationRepository implements VerificationRepository
 
         $signature = $this->createSignature($payload);
 
-        Mail::to($user->email)
+        Mail::to('oliver.giess.93@gmail.com')
             ->send(new VerificationEmail($user->first_name, $user->email, $expiry, $signature));
 
         return true;
@@ -53,13 +55,13 @@ class MailVerificationRepository implements VerificationRepository
         }
 
         $this->repository->update($user->id, [
-            'email_verified_at' => $this->getNow()
+            'email_verified_at' => Carbon::now()
         ]);
 
         return true;
     }
 
-    private function createPayload(User $user, int $expiry)
+    private function createPayload(UserResource $user, int $expiry)
     {
         return [
             $user->email,

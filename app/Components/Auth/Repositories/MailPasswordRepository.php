@@ -8,6 +8,7 @@ use App\Components\Base\Traits\HandleSigning;
 use App\Components\User\Contracts\Repositories\UserRepository;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ResetPasswordEmail;
+use App\Components\User\Http\Resources\UserResource;
 
 class MailPasswordRepository implements PasswordRepository
 {
@@ -30,7 +31,7 @@ class MailPasswordRepository implements PasswordRepository
 
         $signature = $this->createSignature($payload);
 
-        Mail::to($user->email)
+        Mail::to('oliver.giess.93@gmail.com')
             ->send(new ResetPasswordEmail($user->first_name, $user->email, $expiry, $signature));
 
         return true;
@@ -46,12 +47,12 @@ class MailPasswordRepository implements PasswordRepository
 
         $this->checkSignature($signature, $payload);
 
-        $this->repository->updatePassword($user->id);
+        $this->repository->updatePassword($user->id, $password);
 
         return true;
     }
 
-    private function createPayload(User $user, int $expiry)
+    private function createPayload(UserResource $user, int $expiry)
     {
         return [
             $user->password,
