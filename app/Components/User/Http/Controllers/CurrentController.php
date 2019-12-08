@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use App\Components\User\Contracts\Repositories\UserRepository;
 use App\Components\User\Http\Requests\CurrentUpdateRequest;
+use App\Components\User\Http\Requests\CurrentUpdatePasswordRequest;
 
 class CurrentController extends BaseController
 {
@@ -34,5 +35,12 @@ class CurrentController extends BaseController
         $user = $this->repository->showAuthenticated();
 
         return $this->repository->update($user->id, $data);
+    }
+
+    public function updatePassword(CurrentUpdatePasswordRequest $request)
+    {
+        $user = $this->repository->showAuthenticated();
+
+        return $this->repository->updatePassword($user->id, $request->new_password);
     }
 }

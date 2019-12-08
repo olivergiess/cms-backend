@@ -12,8 +12,11 @@
 
 // Auth
 Route::post('/auth/logout', 'Auth\Http\Controllers\AuthController@logout');
-Route::get('/user/current', 'User\Http\Controllers\CurrentController@show');
-Route::put('/user/current', 'User\Http\Controllers\CurrentController@update');
+
+// User
+Route::get('/users/current', 'User\Http\Controllers\CurrentController@show');
+Route::put('/users/current', 'User\Http\Controllers\CurrentController@update');
+Route::put('/users/current/password', 'User\Http\Controllers\CurrentController@updatePassword');
 
 // Blogs
 Route::post('/blogs', 'Blog\Http\Controllers\BlogController@store')->middleware('can:create,App\Components\Blog\Http\Resources\BlogResource');

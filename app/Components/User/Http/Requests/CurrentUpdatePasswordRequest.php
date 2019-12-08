@@ -4,7 +4,9 @@ namespace App\Components\User\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CurrentUpdateRequest extends FormRequest
+use App\Rules\IsCurrentPassword;
+
+class CurrentUpdatePasswordRequest extends FormRequest
 {
     public function authorize()
     {
@@ -14,8 +16,8 @@ class CurrentUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => 'string',
-            'last_name'  => 'string'
+            'current_password' => ['required', 'string', new IsCurrentPassword],
+            'new_password'     => 'required|string|min:8'
         ];
     }
 }
