@@ -14,8 +14,10 @@ class CurrentUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => 'string',
-            'last_name'  => 'string'
+            'first_name'       => 'string',
+            'last_name'        => 'string',
+            'facebook_user_id' => 'nullable|string',
+            'instagram_handle' => 'nullable|string'
         ];
     }
 }

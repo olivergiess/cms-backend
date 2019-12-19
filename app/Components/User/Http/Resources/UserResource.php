@@ -20,13 +20,15 @@ class UserResource extends BaseResource
     protected function structure()
     {
         return [
-            'type'       => 'user',
-            'id'         => $this->id,
-            'first_name' => $this->first_name,
-            'last_name'  => $this->last_name,
-            'email'      => $this->email,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'type'             => 'user',
+            'id'               => $this->id,
+            'first_name'       => $this->first_name,
+            'last_name'        => $this->last_name,
+            'email'            => $this->email,
+            'facebook_user_id' => $this->facebook_user_id,
+            'instagram_handle' => $this->instagram_handle,
+            'created_at'       => $this->created_at,
+            'updated_at'       => $this->updated_at,
         ];
     }
 }

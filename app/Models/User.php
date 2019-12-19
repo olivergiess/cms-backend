@@ -21,8 +21,9 @@ class User extends Base implements AuthenticatableContract, AuthorizableContract
         'last_name',
         'email',
         'password',
-        'date_of_birth',
-        'email_verified_at'
+        'facebook_user_id',
+        'instagram_handle',
+        'email_verified_at',
     ];
 
     public function getJWTIdentifier()
