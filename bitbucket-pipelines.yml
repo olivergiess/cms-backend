@@ -14,4 +14,4 @@ pipelines:
             - ssh $DEPLOY_USER@$DEPLOY_HOST "sudo /home/$DEPLOY_USER/$RETURN_PRIVILEGES"
             - ssh $DEPLOY_USER@$DEPLOY_HOST php $DEPLOY_PATH/artisan config:cache
             - ssh $DEPLOY_USER@$DEPLOY_HOST php $DEPLOY_PATH/artisan route:cache
-            - ssh $DEPLOY_USER@$DEPLOY_HOST php $DEPLOY_PATH/artisan migrate --no-interaction
+            - ssh $DEPLOY_USER@$DEPLOY_HOST php $DEPLOY_PATH/artisan migrate --force
